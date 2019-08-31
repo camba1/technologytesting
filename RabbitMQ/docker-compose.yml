@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  myhwrabbit:
+    image: rabbitmq:3-management
+    container_name: rabbithw
+    hostname: myrabbithw
+    command: nodemon -L
+    ports:
+      - "15672:15672"
+  rabbitproducerhw:
+    build: .
+    container_name: rabbithwproducer
+    volumes:
+      - .:/code
+    ports:
+      - "3000:3000"
+  rabbitconsumerhw:
+    build: .
+    container_name: rabbithwconsumer
+    volumes:
+      - .:/code
+    ports:
+      - "3000:3000"

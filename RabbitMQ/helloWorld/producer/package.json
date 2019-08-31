@@ -1,0 +1,8 @@
+{
+  "name": "RabbitProducerHW",
+  "version": "0.0.1",
+  "description": "RabbitMQ producer hello world",
+  "dependencies": {
+    "amqplib": "^0.5.5"
+  }
+}
