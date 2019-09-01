@@ -9,14 +9,14 @@ services:
     ports:
       - "15672:15672"
   rabbitproducerhw:
-    build: .
+    build: ./producer
     container_name: rabbithwproducer
     volumes:
       - .:/code
     ports:
       - "3000:3000"
   rabbitconsumerhw:
-    build: .
+    build: ./consumer
     container_name: rabbithwconsumer
     volumes:
       - .:/code
