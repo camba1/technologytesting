@@ -34,3 +34,18 @@ docker rmi hwproducer
 
 ### Run all three containers as one with docker-compose
 To start all the containers at once and automatically add them to the same network just got to the helloworld folder and type `docker-compose up`. Note that you can run them indetached mode using the -d parameter. After all 3 containers come up, you can stop them by doing `docker-compose down` in the same directory.
+
+### Sending messages
+
+- Bring the containers up: `docker-compose up`
+- Log into the producer service: `docker exec -it rabbithwproducer "bash"`
+- Log into the consumer service: `docker exec -it rabbithwconsumer "bash"`
+- Log into the RabbitMQ manager: Go to `http://localhost:15672` and use the guest/guest credentials.
+- Send a message from the producer by executing `./send.js` from the src folder in the producer folder
+- See the queue get created in the management console with one message
+- Receive the message in the consumer by executing `./receive.js` from the src folder in the consumer container
+- See the message count reset to 0 in the management console.
+- Play sending more messages if you want
+- Stop the receiving service (`ctrl-c`)
+- Exit the producer and consumer containers
+- Bring the containers down `docker-compose down`
