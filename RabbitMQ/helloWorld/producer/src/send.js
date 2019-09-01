@@ -28,8 +28,8 @@ amqp.connect('amqp://rabbithw', function(error0, connection){
     console.log(" [x] Sent %s", msg)
   });
   // Close the connection
-  setTimeOut(function(){
-    connection.close();
-    process.exit(0)
+  setTimeout(function() {
+      connection.close();
+      process.exit(0);
   }, 500);
 })
