@@ -15,7 +15,7 @@ services:
     container_name: rabbithwproducer
     command: tail -f /dev/null
     volumes:
-      - .:/code
+      - ./producer:/code
   rabbitconsumerhw:
     build: ./consumer
     depends_on:
@@ -23,4 +23,4 @@ services:
     container_name: rabbithwconsumer
     command: tail -f /dev/null
     volumes:
-      - .:/code
+      - ./consumer:/code
