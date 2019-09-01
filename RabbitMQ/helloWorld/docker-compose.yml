@@ -4,21 +4,21 @@ services:
   myhwrabbit:
     image: rabbitmq:3-management
     container_name: rabbithw
-    hostname: myrabbithw
+    hostname: rabbithw
     command: nodemon -L
     ports:
       - "15672:15672"
   rabbitproducerhw:
     build: ./producer
+    depends_on:
+      - myhwrabbit
     container_name: rabbithwproducer
     volumes:
       - .:/code
-    ports:
-      - "3000:3000"
   rabbitconsumerhw:
     build: ./consumer
+    depends_on:
+      - myhwrabbit
     container_name: rabbithwconsumer
     volumes:
       - .:/code
-    ports:
-      - "3000:3000"
