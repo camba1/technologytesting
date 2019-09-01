@@ -17,7 +17,7 @@ ampq.connect('amqp://rabbithw',function(error0, connection) {
     // Create the queue in case the producer has not started yet
     channel.assertQueue(queue, {
       durable: false
-    }):
+    });
 
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
     //Create a callback function that will be triggered when there are new
