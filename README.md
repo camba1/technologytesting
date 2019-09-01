@@ -31,3 +31,6 @@ Then to remove the container and image:
 docker rm myhwproducer
 docker rmi hwproducer
 ```
+
+### Run all three containers as one with docker-compose
+To start all the containers at once and automatically add them to the same network just got to the helloworld folder and type `docker-compose up`. Note that you can run them indetached mode using the -d parameter. After all 3 containers come up, you can stop them by doing `docker-compose down` in the same directory.
