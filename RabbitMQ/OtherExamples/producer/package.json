@@ -1,0 +1,8 @@
+{
+  "name": "RabbitProducerOE",
+  "version": "0.0.1",
+  "description": "RabbitMQ producer other examples",
+  "dependencies": {
+    "amqplib": "^0.5.5"
+  }
+}

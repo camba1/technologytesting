@@ -1,0 +1,8 @@
+{
+  "name": "RabbitConsumerOE",
+  "version": "0.0.1",
+  "description": "RabbitMQ consumer other examples",
+  "dependencies": {
+    "amqplib": "^0.5.5"
+  }
+}

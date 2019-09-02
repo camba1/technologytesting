@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  myoerabbit:
+    image: rabbitmq:3-management
+    container_name: rabbitoe
+    hostname: rabbitoe
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  rabbitproduceroe:
+    build: ./producer
+    depends_on:
+      - myoerabbit
+    container_name: rabbitoeproducer
+    command: tail -f /dev/null
+    volumes:
+      - ./producer:/code
+  rabbitconsumerhw:
+    build: ./consumer
+    depends_on:
+      - myoerabbit
+    container_name: rabbitoeconsumer
+    command: tail -f /dev/null
+    volumes:
+      - ./consumer:/code
