@@ -115,3 +115,13 @@ To run the example:
 - Start publishing messages :` ./emit_log.js` (from the src directory)
 - Subscribe to an exchange: `./receive_logs.js` (from the src directory)
 - Subscribe to an exchange again `./receive_logs.js` (from the src directory in another console)
+
+
+### Direct exchange routing
+
+If we want messages to go to an subset of subscriber, we can use the 'direct' exchange type( instead of fanout ). they we can assign a 'binding key' to each message and a matching 'routing key' to the queue. Only queues in the exchange where the routing key matches the message binding keys will receive the message.
+
+To run the example:
+- Start publishing messages :` ./emit_log_direct.js` (from the src directory)
+- Subscribe to an exchange: `./receive_logs_direct.js <info,warning,error> "<message>"` (from the src directory)
+- Subscribe to an exchange again `./receive_logs_direct.js <info,warning,error> "<message>"` (from the src directory in another console)
