@@ -56,5 +56,9 @@ To start all the containers at once and automatically add them to the same netwo
 
 ### Work Queues (aka: Task Queues)
 
-Work queues are used to schedule tasks to be completed later. This is specially useful when the task is long running. The task is encapsulated in the message.
+Work queues are used to schedule tasks to be completed later. This is specially useful when the task is long running. The task is encapsulated in the message. Work queues can parallelize work and have multiple consumers work on a task to be able to scale easily. Messages will get distributed in a round robbin fashion.
+
+To run the example:
+ - In the producer: run from the src folder `./new_task.js <dots>` (where \<dots> means a set of dots like '...' having each dots symbolize the number of seconds the task will take to run)
+ - In the consumer: run from the src folder `./worker.js`. to start more than one worker, run the command in the same container or create multiple containers and run it in each of them. Note that running in multiple container needs more initial setup, but it is more recilient.
  
