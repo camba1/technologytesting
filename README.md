@@ -7,7 +7,11 @@ Repository containing multiple technologies that I am playing with for use in la
 Open source message broker software (sometimes called message-oriented middleware) that implements the Advanced Message Queuing Protocol.
 This could be used for sending messages accross microservices
 
-### Run node containers using DockerFile
+### Hello World using a named queue
+The first example uses a named queue to send and receive messages sent by a producer container and received by a consumer container. Both containers run nodejs and use the amqp.node client to connect to RebbitMQ.
+The code for this example is found under the helloworld folder
+
+#### Run node containers using DockerFile
 Use the following commands to build and run the node producer and consumer containers Assuming you are in the producer/consumer appropriate root directory:
 
 ```
@@ -32,10 +36,10 @@ docker rm myhwproducer
 docker rmi hwproducer
 ```
 
-### Run all three containers as one with docker-compose
+#### Run all three containers as one with docker-compose
 To start all the containers at once and automatically add them to the same network just got to the helloworld folder and type `docker-compose up`. Note that you can run them indetached mode using the -d parameter. After all 3 containers come up, you can stop them by doing `docker-compose down` in the same directory.
 
-### Sending messages
+#### Sending messages
 
 - Bring the containers up: `docker-compose up`
 - Log into the producer service: `docker exec -it rabbithwproducer "bash"`
@@ -49,3 +53,8 @@ To start all the containers at once and automatically add them to the same netwo
 - Stop the receiving service (`ctrl-c`)
 - Exit the producer and consumer containers
 - Bring the containers down `docker-compose down`
+
+### Work Queues (aka: Task Queues)
+
+Work queues are used to schedule tasks to be completed later. This is specially useful when the task is long running. The task is encapsulated in the message.
+ 
