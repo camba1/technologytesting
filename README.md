@@ -56,9 +56,36 @@ To start all the containers at once and automatically add them to the same netwo
 
 ### Work Queues (aka: Task Queues)
 
-Work queues are used to schedule tasks to be completed later. This is specially useful when the task is long running. The task is encapsulated in the message. Work queues can parallelize work and have multiple consumers work on a task to be able to scale easily. Messages will get distributed in a round robbin fashion.
+Work queues are used to schedule tasks to be completed later. This is specially useful when the task is long running. The task is encapsulated in the message. Work queues can parallelize work and have multiple consumers work on a task to be able to scale easily. Messages will get distributed in a round robbin fashion. If one wants to ensure that no more than X messages are sent to a queue at a time, use the `channel.prefetch(<X>);` command where X is the number of messages.
 
 To run the example:
  - In the producer: run from the src folder `./new_task.js <dots>` (where \<dots> means a set of dots like '...' having each dots symbolize the number of seconds the task will take to run)
  - In the consumer: run from the src folder `./worker.js`. to start more than one worker, run the command in the same container or create multiple containers and run it in each of them. Note that running in multiple container needs more initial setup, but it is more recilient.
- 
+
+#### Acknowledgement of messages
+
+- Automatic acknowledgement (not good if the consumer can get overwhelmed by the producer). Acknowledgement is sent as soon as the task is received
+```
+noAck: true
+```
+- Manual acknowledgement when task finishes. This ensures that if the worker dies, the meesage can be redelivered to another worker. Note that an acknowledgement must be provided somewhere or RabbitMQ will continously  resend these messages until they get acknolwedged
+```
+noAck: false
+```
+To send the manual acknowledgement, do `channel.ack(msg);` once the task is complete.
+
+#### Meesage durability
+
+On queue creation one can indicate that the queue must be written to disk. This is in case RabbitMQ crashes
+```
+channel.assertQueue(queue, {
+  durable: true
+});
+```
+The same must be done with the messages:
+```
+channel.sendToQueue(queue, Buffer.from(msg), {
+  persitent: true
+  });
+```
+Note that making the queue durable must be set both on the consumer and the producer.

@@ -17,7 +17,7 @@ amqp.connect('amqp://rabbitoe', function(error0, connection){
   connection.createChannel(function(error1, channel){
 
     var queue = 'task_queue';
-    var msg = process.argv.slice(2).join(' ') || 'Hello World!'; // Get the task name from the command line
+    var msg = process.argv.slice(2).join(' ') || 'Hello World!';
 
     if (error1) {
       throw error1;
@@ -25,11 +25,13 @@ amqp.connect('amqp://rabbitoe', function(error0, connection){
 
     //Create queue
     channel.assertQueue(queue, {
+      //indicate that the queue should be written to disk (in case rabbitMQ crashes)
       durable: true
     });
 
     //send message to queue
     channel.sendToQueue(queue, Buffer.from(msg), {
+      //indicate that the message should be written to disk (in case rabbitMQ crashes)
       persitent: true
     });
     console.log(" [x] Sent %s", msg)
