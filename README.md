@@ -58,6 +58,7 @@ To start all the containers at once and automatically add them to the same netwo
 
 Work queues are used to schedule tasks to be completed later. This is specially useful when the task is long running. The task is encapsulated in the message. Work queues can parallelize work and have multiple consumers work on a task to be able to scale easily. Messages will get distributed in a round robbin fashion. If one wants to ensure that no more than X messages are sent to a queue at a time, use the `channel.prefetch(<X>);` command where X is the number of messages.
 
+#### Running the example
 To run the example:
  - In the producer: run from the src folder `./new_task.js <dots>` (where \<dots> means a set of dots like '...' having each dots symbolize the number of seconds the task will take to run)
  - In the consumer: run from the src folder `./worker.js`. to start more than one worker, run the command in the same container or create multiple containers and run it in each of them. Note that running in multiple container needs more initial setup, but it is more recilient.
@@ -89,3 +90,28 @@ channel.sendToQueue(queue, Buffer.from(msg), {
   });
 ```
 Note that making the queue durable must be set both on the consumer and the producer.
+
+### Publish & Subscribe
+
+This type of queue allows publishing a message to multiple subscribers (unlike work queues that are one message to one consumer).
+
+When sending message to a queue, we directly provide the queue name, while `channel.publish('logs', '', Buffer.from('Hello World!'));` sends message to a specific exchange called '_logs_' but not to a specific queue (second paramter being empty)
+
+In order to use an exchange we must define it with  `channel.assertExchange('logs', 'fanout', {durable: false})` and there are 4 types of exchanges: direct, topic, headers and fanout. Fanout is the whole channel option, meaning the message will get pushed to all the queues in the channel.
+
+Note that RabbitMQ still needs a queue to work from when a new worker comes online. As such we can let it create a random , exclusive queue to be used with that specific queue (since it is not important that the consumer and producer are using the same queue in this case).
+
+```
+channel.assertQueue('', {
+  exclusive: true
+});
+```
+
+We must also bind the que we just created to the exchange (the 'logs' exchange in this case), so we use the commad `channel.bindQueue(queue_name, 'logs', '');` as part of the assertQueue directive.
+
+#### Running the example
+
+To run the example:
+- Start publishing messages :` ./emit_log.js` (from the src directory)
+- Subscribe to an exchange: `./receive_logs.js` (from the src directory)
+- Subscribe to an exchange again `./receive_logs.js` (from the src directory in another console)
