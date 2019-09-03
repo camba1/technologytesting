@@ -125,3 +125,12 @@ To run the example:
 - Start publishing messages :` ./emit_log_direct.js` (from the src directory)
 - Subscribe to an exchange: `./receive_logs_direct.js <info,warning,error> "<message>"` (from the src directory)
 - Subscribe to an exchange again `./receive_logs_direct.js <info,warning,error> "<message>"` (from the src directory in another console)
+
+### Topic exchange patern
+
+This is simialr to direct exchanges, however the binding and routing keys are composed of a bunch of words separated by commas (,) and can be up to 255 bites long. However, the the queue routing key can contain 'jokers':
+
+- \# can match zero or more words
+- \* can match exactly one word
+
+As such, for example, 'one.two.three' could be matched by 'one.two.three', 'one.two.*', 'one.#', '#'.
