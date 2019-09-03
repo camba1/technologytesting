@@ -109,7 +109,7 @@ channel.assertQueue('', {
 
 We must also bind the que we just created to the exchange (the 'logs' exchange in this case), so we use the commad `channel.bindQueue(queue_name, 'logs', '');` as part of the assertQueue directive.
 
-#### Running the example
+##### Running the example
 
 To run the example:
 - Start publishing messages :` ./emit_log.js` (from the src directory)
@@ -117,7 +117,7 @@ To run the example:
 - Subscribe to an exchange again `./receive_logs.js` (from the src directory in another console)
 
 
-### Direct exchange routing
+#### Direct exchange routing
 
 If we want messages to go to an subset of subscriber, we can use the 'direct' exchange type( instead of fanout ). they we can assign a 'binding key' to each message and a matching 'routing key' to the queue. Only queues in the exchange where the routing key matches the message binding keys will receive the message.
 
@@ -126,7 +126,7 @@ To run the example:
 - Subscribe to an exchange: `./receive_logs_direct.js <info,warning,error> "<message>"` (from the src directory)
 - Subscribe to an exchange again `./receive_logs_direct.js <info,warning,error> "<message>"` (from the src directory in another console)
 
-### Topic exchange patern
+#### Topic exchange patern
 
 This is simialr to direct exchanges, however the binding and routing keys are composed of a bunch of words separated by commas (,) and can be up to 255 bites long. However, the the queue routing key can contain 'jokers':
 
@@ -134,3 +134,17 @@ This is simialr to direct exchanges, however the binding and routing keys are co
 - \* can match exactly one word
 
 As such, for example, 'one.two.three' could be matched by 'one.two.three', 'one.two.*', 'one.#', '#'.
+
+### Remote procedure call (RPC)
+
+RPC queues similar to the work queues in that they connect a task to a worker. However, the worker and task can be in different machines.
+
+In this scenario, the client will send a message to an outbound queue along with the name of a **reply_to** queue name and a **correlation_id**. The reply_to queue will be where the worker will put a message indicating that the task is complete. The correlation_id will allow us to use the outbound and inbound queue with multiple rpc calls within the same client. In particular the correlation_id will be unique to each rpc call. The whole process looks like this:
+
+- Client starts up: create anonymous exclusive callback rpc_queue
+- For each RPC request,  Client sends a message with:
+  - **reply_to** (callback queue)
+  - **correlation_id** (unique value request)
+- The request is sent to rpc_queue.
+- Worker does the job when request appears in rpc_queue and sends results back using the queue from the **reply_to** field.
+- The client: When a message appears callback queue, client checks the correlation_id. If it matches the value from the request it returns the response to the application.
