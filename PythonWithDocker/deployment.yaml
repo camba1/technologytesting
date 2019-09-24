@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firstpythonhw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: firstpythonhw
+      track: stable
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: firstpythonhw
+        app: firstpythonhw
+        track: stable
+      name: firstpythonhw
+    spec:
+      containers:
+      - image: bolbeck/simplepythonimage
+        name: firstpythonhw
+        ports:
+        - containerPort: 5000
+        resources: {}
+      restartPolicy: Always
+status: {}
