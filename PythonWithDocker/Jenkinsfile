@@ -8,7 +8,7 @@ node {
     }
 
     stage('Build image') {
-      dir('web_app') {
+      dir('PythonWithDocker') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
