@@ -8,10 +8,12 @@ node {
     }
 
     stage('Build image') {
+      dir('web_app') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
         app = docker.build("bolbeck/simplepythonimage")
+      }
     }
 
     stage('Test image') {
