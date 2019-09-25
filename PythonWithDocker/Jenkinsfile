@@ -35,7 +35,7 @@ node {
     stage('Push to Minikube') {
       /* Push image to Minikube */
       dir('PythonWithDocker/Kubernetes') {
-        sh("kubctl apply -f deployment.yaml -f service.yaml")
+        sh("kubectl apply -f deployment.yaml -f service.yaml")
       }
     }
 }
