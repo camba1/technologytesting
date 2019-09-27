@@ -21,13 +21,18 @@ node {
       }
     }
 
-    stage('Test image') {
-        /* Test image ... */
 
-        app.inside {
-            sh 'echo "Tests passed"'
+
+    stage('Push image') {
+        /* Push images: First is tagged with the build BUILD_NUMBER
+         the second is just tagged latest !*/
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
     }
-
-
+    stage('Deploy') {
+      /* Deploy image to Kubernetes */
+      kubernetesDeploy configs: "PythonWithDocker/Kubernetes/appManifests/*.yaml", kubeconfigId: 'main__kubeconfig'
+    }
 }
