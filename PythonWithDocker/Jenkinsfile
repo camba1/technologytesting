@@ -21,7 +21,10 @@ node {
       }
     }
 
-
+    stage('Initialize2'){
+           def dockerHome = tool 'myDocker'
+           env.PATH = "${dockerHome}/bin:${env.PATH}"
+       }
 
     stage('Push image') {
         /* Push images: First is tagged with the build BUILD_NUMBER
