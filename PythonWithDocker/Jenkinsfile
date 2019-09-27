@@ -1,10 +1,10 @@
 node {
     def app
 
-    stage('Initialize'){
+  /*  stage('Initialize'){
            def dockerHome = tool 'myDocker'
            env.PATH = "${dockerHome}/bin:${env.PATH}"
-       }
+       }*/
 
     stage('Clone repository') {
         /* Clone our repository */
@@ -15,9 +15,9 @@ node {
     stage('Build image') {
       dir('PythonWithDocker') {
         /* Build the docker image */
-      //  withEnv(['HOME='+pwd()]){
+      docker.withTool('myDocker') {
         app = docker.build("bolbeck/simplepythonimage")
-      //  }
+        }
       }
     }
 
