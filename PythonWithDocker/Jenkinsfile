@@ -21,5 +21,13 @@ node {
       }
     }
 
+    stage('Test image') {
+        /* Test image ... */
+
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+    }
+
 
 }
