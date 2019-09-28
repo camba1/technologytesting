@@ -14,6 +14,7 @@ spec:
 
 ---
 
+# Create claim for storage
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -26,6 +27,7 @@ spec:
       storage: 2Gi
 ---
 
+# Create Service account
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -35,6 +37,7 @@ automountServiceAccountToken: true
 
 ---
 
+# Create authorizatio roles needed for jenkins service aacount
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -50,6 +53,7 @@ subjects:
 
 ---
 
+# Create ConfigMap to create the credentials needed and store them in the config file
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -67,6 +71,7 @@ data:
 
 ---
 
+# Create Nodeport to communicate with the world
 apiVersion: v1
 kind: Service
 metadata:
@@ -84,6 +89,8 @@ spec:
 
 ---
 
+# Use an initContainer to install Kubectl where the Jenkins image can use it
+# Install Jenkins on a pod and set it up to use the service account
 apiVersion: apps/v1
 kind: Deployment
 metadata:
