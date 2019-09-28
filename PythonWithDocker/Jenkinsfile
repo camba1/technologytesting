@@ -17,13 +17,13 @@ node {
       }
     }
 
-    stage('Test image') {
-        /* Test image ... */
-
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
-    }
+    // stage('Test image') {
+    //     /* Test image ... */
+    //
+    //     app.inside {
+    //         sh 'echo "Tests passed"'
+    //     }
+    // }
 
     // stage('Push image') {
     //     /* Push images: First is tagged with the build BUILD_NUMBER
