@@ -1,10 +1,6 @@
 node {
     def app
 
-  /*  stage('Initialize'){
-           def dockerHome = tool 'myDocker'
-           env.PATH = "${dockerHome}/bin:${env.PATH}"
-       }*/
 
     stage('Clone repository') {
         /* Clone our repository */
@@ -26,7 +22,7 @@ node {
          the second is just tagged latest !*/
       docker.withTool('myDocker') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            //app.push("${env.BUILD_NUMBER}")
+            app.push("${env.BUILD_NUMBER}")
             app.push("latest")
           }
         }
