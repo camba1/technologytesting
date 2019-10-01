@@ -38,8 +38,8 @@ node {
         }
     }
 
-   stage('Deploy') {
-     /* Deploy image to Kubernetes */
-     kubernetesDeploy configs: "PythonWithDocker/Kubernetes/appManifests/*.yaml", kubeconfigId: 'main__kubeconfig'
-   }
+   // stage('Deploy') {
+   //   /* Deploy image to Kubernetes */
+   //   kubernetesDeploy configs: "PythonWithDocker/Kubernetes/appManifests/*.yaml", kubeconfigId: 'main__kubeconfig'
+   // }
 }
