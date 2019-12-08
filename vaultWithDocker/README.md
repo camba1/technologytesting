@@ -35,9 +35,12 @@ This will start Vault and makes it accessible in ```localhost:8200```
 
 To access vault using the CLI within the container itself:
 
+```bash
 docker exec -it devvault sh
 export VAULT_ADDR='http://0.0.0.0:8200'
-vault login (when asked for a token enter the root token that was given on container start up)
+vault login
+```
+Note: When asked for a token at login, enter the root token that was given on container start up
 
 After that you can enter regular Vault commands
 
