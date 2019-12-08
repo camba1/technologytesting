@@ -14,6 +14,6 @@ The sample project has examples on how to run the different types of queues usin
 
 Vault is a secrets management system  that can be used on prem or in the cloud. The example here shows how to setup  vault to run from a container using the file system for secret storage.
 
-## Python
+## Python Docker
 
-Python is the most popular programming language for data science. the example here, shows how to run Python in docker, how to build the image automatically with Jenkins and finally how to push the image to Kubernetes running in Minikube.
+Python is the most popular programming language for data science. The example here, shows how to run Python in docker, how to build the image automatically with Jenkins and finally how to push the image to Kubernetes running in Minikube.
