@@ -1,6 +1,7 @@
 # Technology Testing
 
-Repository containing multiple technologies that I am playing with for use in later projects
+Repository containing multiple technologies that I am playing with for use in later projects. Each of the technologies sub folders contains `readme` files with useful information about how to start using the particular technology. The samples in this repository are purely educational so if you have things you want to add or change just feel free to do so.
+
 Currently this project has the following technology examples:
 
 ## RabbitMQ
